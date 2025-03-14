@@ -44,6 +44,8 @@ HTMLCanvasElement.prototype.toBlob = function(callback, mimeType = "image/png", 
 };
 ```
 ## The difference between UseForm type and UseFormReturn type
+UseForm type is the props type of useForm hook that is used to manage form using react-hook-form. And UseFormReturn type is the return type of this hook. With UseForm type, you can pass in the props that you want to use in the useForm hook. The return values of useForm are setters and getters for values and errors as well as triggers for validation, handler for submission, register funciton for taking inputs and reset for resetting the form.
+
 ```typescript
 export type UseFormProps<TFieldValues extends FieldValues = FieldValues, TContext = any> = Partial<{
     mode: Mode;
