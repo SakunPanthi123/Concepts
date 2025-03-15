@@ -44,6 +44,7 @@ HTMLCanvasElement.prototype.toBlob = function(callback, mimeType = "image/png", 
 };
 ```
 ## The difference between UseForm type and UseFormReturn type
+
 UseForm type is the props type of useForm hook that is used to manage form using react-hook-form. And UseFormReturn type is the return type of this hook. With UseForm type, you can pass in the props that you want to use in the useForm hook. The return values of useForm are setters and getters for values and errors as well as triggers for validation, handler for submission, register funciton for taking inputs and reset for resetting the form.
 
 ```typescript
@@ -85,4 +86,39 @@ export type UseFormReturn<TFieldValues extends FieldValues = FieldValues, TConte
 };
 ```
 
-test
+## The Context API of React
+
+The createContext and useContext functions are part of the React Context API, which allows you to pass data through the component tree without having to pass props down manually at every level. The createContext function creates a new object. This object has two properties: Provider and Consumer. The Provider component has a property called value that can be used to pass data to any component that is a descendant of the Provider. The useContext function is a hook that allows you to access the value passed to the Provider from any component that is a descendant of the Provider.
+
+```typescript
+interface ProviderProps<T> {
+        value: T;
+        children?: ReactNode | undefined;
+    }
+```
+```typescript
+
+type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
+
+ interface Context<T> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+         */
+        displayName?: string | undefined;
+    }
+```
+```typescript
+function createContext<T>(
+        // If you thought this should be optional, see
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
+        defaultValue: T,
+    ): Context<T>;
+
+    function useContext<T>(context: Context<T>): T;
+```
