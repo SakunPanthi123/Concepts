@@ -122,3 +122,21 @@ function createContext<T>(
 
     function useContext<T>(context: Context<T>): T;
 ```
+
+## The clean up method of useEffect
+The clean up method of useEffect is a function that is returned from the useEffect hook. This function is called when the component is unmounted or when the dependencies of the useEffect hook change. The clean up method is used to clean up any side effects that were created in the useEffect hook, such as removing event listeners or cancelling network requests.
+
+```typescript
+useEffect(() => {
+    const handleResize = () => {
+        console.log('Window resized');
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Clean up method
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, []);
+```
