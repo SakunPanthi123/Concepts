@@ -149,3 +149,36 @@ function Counter() {
 }
 
 ```
+
+## Dependency array of hooks
+In react there is dependency of hooks like useEffect and useImperativeHandleRef that access current state and not stale closure of state values only when they are added in their dependency array.
+```typescript
+useImperativeHandle(ref, () => {
+    return {
+        async activateCamera() {
+            const str = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user" },
+                audio: false
+            }).catch(e=>{
+                console.error(e)
+            });
+            if (str) {
+                setStream(str)      
+                setIsOpen(true)
+                return true
+            }
+            return false
+            
+
+        },
+        dismissCamera() {
+            if (stream){
+                stream.getTracks().forEach(track=>track.stop())
+            }
+            setIsOpen(false)
+        },
+
+    }
+}, [stream]) // Add stream to the dependency array
+```
+Adding `stream` to the dependency array ensures that the `dismissCamera` function always has access to the current stream value, rather than a stale closure from the initial render.
